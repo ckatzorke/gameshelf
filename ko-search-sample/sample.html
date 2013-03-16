@@ -9,7 +9,7 @@
 </head>
 <body>
 <form id="search" data-bind="submit: search">
-	<input type="text" name="searchtext" data-bind="value: searchtext" placeholder="Search..."><button type="submit">go</button>
+	<input type="text" name="searchtext" data-bind='value: searchtext, valueUpdate: "afterkeydown"' placeholder="Search..."><button type="submit">go</button>
 </form>
 <small>Search for: <span data-bind="text: searchtext"></span></small>
 <hr>
