@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title>Sample</title>
+	<link rel="stylesheet" type="text/css" href="css/ko-search.css">
+	
+
+
+
+</head>
+<body>
+<form id="search" data-bind="submit: search">
+	<input type="text" name="searchtext" data-bind="value: searchtext" placeholder="Search..."><button type="submit">go</button>
+</form>
+<small>Search for: <span data-bind="text: searchtext"></span></small>
+<hr>
+<ul data-bind="foreach: searchresults">
+	<li data-bind="click: $root.showDetails"><span data-bind="text: name"></span> (<span data-bind="text: platforms"></span>)</li>
+</ul>
+</body>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<!--script type="text/javascript" src="js/sammy-latest.min.js"></script-->
+<!-- script type="text/javascript" src="js/zepto.min.js"></script-->
+<script type="text/javascript" src="js/knockout-2.2.1.js"></script>
+<script type="text/javascript" src="js/ko-search.js"></script>
+</html>

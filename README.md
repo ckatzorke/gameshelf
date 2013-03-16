@@ -17,6 +17,7 @@ Game Collection Management
 * context button (+) to add games
 * statistic graph view link
 * shelfview
+* Social Feed
 
 *CollectionList*
 * List View of Collection
