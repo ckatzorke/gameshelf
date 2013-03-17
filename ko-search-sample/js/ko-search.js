@@ -26,14 +26,14 @@ var GiantBombSearch = function(){
 		$.getJSON("http://www.giantbomb.com/api/games/?api_key=&format=json&field_list=name,id", 
 				{
 					"filter"  	: "name:" + searchtxt,
-					"api_key"	: "YOUR_API_KEY_HERE",
+					"api_key"	: "",
 					"format"	: "json",
 					/*"limit"		: 10,*/
 					"field_list": "id,name,original_release_date,platforms,api_detail_url"
 
 				}, function(resultData){
 					if(resultData.status_code == 1){
-						console.log("Found " + resultData.number_of_total_results);
+						console.log("Found " + resultData.number_of_total_results + " results");
 						for (var i = resultData.results.length - 1; i >= 0; i--) {
 							var singleResult = resultData.results[i];
 							self.searchresults.push(new SearchResult(singleResult));
