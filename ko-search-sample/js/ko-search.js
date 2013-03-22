@@ -14,6 +14,7 @@ var GiantBombSearch = function(){
 	var self = this;
 	self.searchtext = ko.observable("");
 	self.searchresults = ko.observableArray();
+	self.apikey = ko.observable("");
 
 	/*self.store = function(){
 		localStorage.apikey = self.apikey();
@@ -26,7 +27,7 @@ var GiantBombSearch = function(){
 		$.getJSON("http://www.giantbomb.com/api/games/?api_key=&format=json&field_list=name,id", 
 				{
 					"filter"  	: "name:" + searchtxt,
-					"api_key"	: "",
+					"api_key"	: self.apikey,
 					"format"	: "json",
 					/*"limit"		: 10,*/
 					"field_list": "id,name,original_release_date,platforms,api_detail_url"

@@ -8,6 +8,9 @@
 
 </head>
 <body>
+<h3>API Key</h3>
+<input type="text" data-bind="value: apikey" placeholder="Enter your giantbomb api key..." size="50"/>
+<hr>
 <form id="search" data-bind="submit: search">
 	<input type="text" name="searchtext" data-bind='value: searchtext, valueUpdate: "afterkeydown"' placeholder="Search..."><button type="submit">go</button>
 </form>
