@@ -1,0 +1,32 @@
+<!doctype html>
+<html ng-app="GiantBombSearch">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script>
+		<script src="js/ui-bootstrap-tpls-0.2.0.js"></script>
+		<!--script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script-->
+		<script src="js/search.js"></script>
+		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+		<link href="css/search.css" rel="stylesheet">
+	</head>
+<body>
+	<h2>GiantBomb Search</h2>
+    <div ng-controller="SearchCtrl">
+    	<form class="form-horizontal">
+    		<input type="text" ng-model="apikey" size="50" placeholder="Enter api_key here" />
+    		<button class="btn" ng-click="storeApiKey()"><i class="icon-ok"></i>Store API Key</button>
+    	</form>	
+        <form class="form-horizontal">
+        	<input type="text" ng-model="searchText"  size="30" placeholder="search here" />
+        	<button class="btn" ng-click="performSearch()"><i class="icon-search"></i>Search</button>
+	    </form>
+      <hr>
+      <table class=" table table-striped">
+		<tr ng-repeat="result in searchResults.results">
+          <td>{{result.name}}</td>
+        </tr>
+      </table>
+    </div>
+    <div><a href="http://www.giantbomb.com" target="blank" title="Powered by GiantBomb"><img src="img/logo-gb.png" alt="Powered by GiantBomb"/></a></div>e
+  </body>
+</html>

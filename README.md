@@ -4,6 +4,10 @@ gameshelf
 Game Collection Management
 --------------------------
 
+### Idea
+
+gameshelf is the working title of a game collection management tool.
+Game data is powered by GiantBomb
 
 ### Overview
 
