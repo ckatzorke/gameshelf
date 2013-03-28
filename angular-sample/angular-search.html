@@ -3,6 +3,7 @@
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-sanitize.min.js"></script>
 		<script src="js/ui-bootstrap-tpls-0.2.0.js"></script>
 		<!--script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script-->
 		<script src="js/search.js"></script>
@@ -14,16 +15,18 @@
     <div ng-controller="SearchCtrl">
     	<form class="form-horizontal">
     		<input type="text" ng-model="apikey" size="50" placeholder="Enter api_key here" />
-    		<button class="btn" ng-click="storeApiKey()"><i class="icon-ok"></i>Store API Key</button>
+    		<button class="btn" ng-click="storeApiKey()"><i class="icon-ok"></i> Store API Key</button>
     	</form>	
         <form class="form-horizontal">
         	<input type="text" ng-model="searchText"  size="30" placeholder="search here" />
-        	<button class="btn" ng-click="performSearch()"><i class="icon-search"></i>Search</button>
+        	<button class="btn" ng-click="performSearch()"><i class="icon-search"></i> Search</button>
 	    </form>
       <hr>
-      <table class=" table table-striped">
+      <table class="table table-striped">
 		<tr ng-repeat="result in searchResults.results">
-          <td>{{result.name}}</td>
+          <td><a href="{{result.site_detail_url}}"><span ng-bind-html="result.name|highlightText:searchText"></span></a></td>
+          <td>{{displayPlatforms(result.platforms)}}</td>
+          <td>{{result.original_release_date|displayDate}}</td>
         </tr>
       </table>
     </div>
