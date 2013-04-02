@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 	<head>
+    <title>GiantBomb List -> Details Example</title>
 		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 	</head>
 <body>
@@ -18,8 +19,8 @@
       </table>
     </script>
     <script type="text/ng-template" id="details.html">
-      Detail for {{detail.id}}<br>
-      <h3>{{detail.title}}</h3>
+      <h3>Detail for {{game.name}}</h3>
+      <div ng-bind-html="game.description"></div>
     </script>
   	<h2>GiantBomb Coll</h2>
       <div ng-controller="ApiKeyCtrl">
@@ -36,7 +37,7 @@
     </div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
-  <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-sanitize.min.js"></script>
   <script src="js/list.js"></script>
 </html>

@@ -1,4 +1,6 @@
-var GiantBombSearch = angular.module('GiantBombSearch', ['ngResource', 'ngSanitize'], function($routeProvider, $locationProvider) {
+var GiantBombSearch = angular.module('GiantBombSearch', ['ngResource', 'ngSanitize']);
+
+GiantBombSearch.config(function($routeProvider, $locationProvider) {
   $routeProvider.when('/', {
     templateUrl: '/search',
     controller: SearchCtrl
@@ -33,7 +35,7 @@ function SearchCtrl($scope, $resource) {
 
 //define search ngResource
   $scope.search = $resource('http://www.giantbomb.com/:action',
-      {action: 'api/games', api_key: 'e316aff9ff7d945077dabd3a13ecebaad12bb70d', format: 'jsonp', field_list: 'name,id,original_release_date,platforms,api_detail_url,site_detail_url', filter: 'name:...', json_callback: 'JSON_CALLBACK'},
+      {action: 'api/games', api_key: '', format: 'jsonp', field_list: 'name,id,original_release_date,platforms,api_detail_url,site_detail_url', filter: 'name:...', json_callback: 'JSON_CALLBACK'},
       {get: {method: 'JSONP'}});  
 
   //define btn handler
