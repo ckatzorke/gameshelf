@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+	<head>
+		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+	</head>
+<body>
+  <div ng-app="GiantBombList">
+    <script type="text/ng-template" id="list.html">
+      <form class="form-horizontal">
+          <input type="text" ng-model="search.$"  size="30" placeholder="search here" />
+      </form>
+      <hr>
+      <table class="table table-striped">
+        <tr ng-repeat="game in collection.games | filter:search">
+          <td><a ng-click="showDetails(game.id)">{{game.title}}</a></td>
+          <td>{{game.platform}}</td>
+        </tr>
+      </table>
+    </script>
+    <script type="text/ng-template" id="details.html">
+      Detail for {{detail.id}}<br>
+      <h3>{{detail.title}}</h3>
+    </script>
+  	<h2>GiantBomb Coll</h2>
+      <div ng-controller="ApiKeyCtrl">
+      	<form class="form-horizontal">
+      		<input type="text" ng-model="apikey" size="50" placeholder="Enter api_key here" />
+      		<button class="btn" ng-click="storeApiKey()"><i class="icon-ok"></i> Store API Key</button>
+      	</form>	
+      </div>
+      <div>
+        <ng-view></ng-view>
+      </div>
+      <div><a href="http://www.giantbomb.com" target="blank" title="Powered by GiantBomb"><img src="img/logo-gb.png" alt="Powered by GiantBomb"/></a></div>
+      <gb></gb>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+  <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-sanitize.min.js"></script>
+  <script src="js/list.js"></script>
+</html>

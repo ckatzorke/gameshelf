@@ -1,4 +1,16 @@
-var GiantBombSearch = angular.module('GiantBombSearch', ['ngResource', 'ngSanitize']);
+var GiantBombSearch = angular.module('GiantBombSearch', ['ngResource', 'ngSanitize'], function($routeProvider, $locationProvider) {
+  $routeProvider.when('/', {
+    templateUrl: '/search',
+    controller: SearchCtrl
+  });
+  $routeProvider.when('/search/:searchText', {
+    templateUrl: '/searchresult',
+    controller: SearchCtrl
+  });
+  // configure html5 to get links working
+  // If you don't do this, you URLs will be base.com/#/home rather than base.com/home
+  $locationProvider.html5Mode(true);
+});
 
 GiantBombSearch.filter('highlightText', function(){
   return function(text, search){
@@ -17,6 +29,7 @@ GiantBombSearch.filter('displayDate', function(){
 function SearchCtrl($scope, $resource) {
   $scope.searchText = "";
   $scope.apikey = localStorage.getItem('apikey');
+  $scope.searching = false;
 
 //define search ngResource
   $scope.search = $resource('http://www.giantbomb.com/:action',
@@ -25,7 +38,11 @@ function SearchCtrl($scope, $resource) {
 
   //define btn handler
   $scope.performSearch = function(){
-    $scope.searchResults = $scope.search.get({filter: 'name:' + $scope.searchText, api_key: localStorage.getItem('apikey')});
+    $scope.searching = true;
+    $scope.search.get({filter: 'name:' + $scope.searchText, api_key: localStorage.getItem('apikey')}, function(result){
+      $scope.searchResults = result;
+      $scope.searching = false;
+    });
   };
   
   $scope.storeApiKey =  function(){

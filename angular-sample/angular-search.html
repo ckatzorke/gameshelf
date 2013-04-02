@@ -8,28 +8,40 @@
 		<!--script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script-->
 		<script src="js/search.js"></script>
 		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
 		<link href="css/search.css" rel="stylesheet">
 	</head>
 <body>
 	<h2>GiantBomb Search</h2>
     <div ng-controller="SearchCtrl">
     	<form class="form-horizontal">
-    		<input type="text" ng-model="apikey" size="50" placeholder="Enter api_key here" />
-    		<button class="btn" ng-click="storeApiKey()"><i class="icon-ok"></i> Store API Key</button>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-key"></i></span>
+          <input type="text" ng-model="apikey" size="50" placeholder="Enter api_key here" />
+        </div>
+    		<button class="btn" ng-click="storeApiKey()"><i class="icon-ok-circle"></i> Store API Key</button>
     	</form>	
         <form class="form-horizontal">
-        	<input type="text" ng-model="searchText"  size="30" placeholder="search here" />
-        	<button class="btn" ng-click="performSearch()"><i class="icon-search"></i> Search</button>
+        	<div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input type="text" ng-model="searchText"  size="30" placeholder="search here" />
+          </div>
+        	<button class="btn" ng-click="performSearch()"><i class="icon-angle-right"></i> Search</button>
 	    </form>
       <hr>
+      <div ng-show="searching">
+        <div class="well well-large well-transparent lead">
+          <i class="icon-spinner icon-spin  pull-left"></i> Searching for '{{searchText}}'...
+        </div>
+      </div>
       <table class="table table-striped">
-		<tr ng-repeat="result in searchResults.results">
-          <td><a href="{{result.site_detail_url}}"><span ng-bind-html="result.name|highlightText:searchText"></span></a></td>
-          <td>{{displayPlatforms(result.platforms)}}</td>
-          <td>{{result.original_release_date|displayDate}}</td>
-        </tr>
-      </table>
+      <tr ng-repeat="result in searchResults.results">
+        <td><a href="{{result.site_detail_url}}"><span ng-bind-html="result.name|highlightText:searchText"></span></a></td>
+        <td>{{displayPlatforms(result.platforms)}}</td>
+        <td>{{result.original_release_date|displayDate}}</td>
+      </tr>
+    </table>
     </div>
-    <div><a href="http://www.giantbomb.com" target="blank" title="Powered by GiantBomb"><img src="img/logo-gb.png" alt="Powered by GiantBomb"/></a></div>e
+    <div><a href="http://www.giantbomb.com" target="blank" title="Powered by GiantBomb"><img src="img/logo-gb.png" alt="Powered by GiantBomb"/></a></div>
   </body>
 </html>
