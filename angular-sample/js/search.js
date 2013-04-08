@@ -1,14 +1,15 @@
-var GiantBombSearch = angular.module('GiantBombSearch', ['ngResource', 'ngSanitize']);
+var GiantBombSearch = angular.module('GiantBombSearch', ['ngGiantBomb', 'ngSanitize']);
 
 GiantBombSearch.config(function($routeProvider, $locationProvider) {
-  $routeProvider.when('/', {
-    templateUrl: '/search',
-    controller: SearchCtrl
-  });
-  $routeProvider.when('/search/:searchText', {
-    templateUrl: '/searchresult',
-    controller: SearchCtrl
-  });
+  $routeProvider
+    .when('/', {
+      templateUrl: '/search',
+      controller: SearchCtrl
+    })
+    .when('/search/:searchText', {
+      templateUrl: '/searchresult',
+      controller: SearchCtrl
+    });
   // configure html5 to get links working
   // If you don't do this, you URLs will be base.com/#/home rather than base.com/home
   $locationProvider.html5Mode(true);
@@ -28,20 +29,16 @@ GiantBombSearch.filter('displayDate', function(){
   }
 });
 
-function SearchCtrl($scope, $resource) {
+function SearchCtrl($scope, $giantbomb) {
   $scope.searchText = "";
   $scope.apikey = localStorage.getItem('apikey');
+  $giantbomb.setAPIKey($scope.apikey);
   $scope.searching = false;
-
-//define search ngResource
-  $scope.search = $resource('http://www.giantbomb.com/:action',
-      {action: 'api/games', api_key: '', format: 'jsonp', field_list: 'name,id,original_release_date,platforms,api_detail_url,site_detail_url', filter: 'name:...', json_callback: 'JSON_CALLBACK'},
-      {get: {method: 'JSONP'}});  
 
   //define btn handler
   $scope.performSearch = function(){
     $scope.searching = true;
-    $scope.search.get({filter: 'name:' + $scope.searchText, api_key: localStorage.getItem('apikey')}, function(result){
+    $giantbomb.gameSearch( $scope.searchText, function(result){
       $scope.searchResults = result;
       $scope.searching = false;
     });
@@ -49,6 +46,7 @@ function SearchCtrl($scope, $resource) {
   
   $scope.storeApiKey =  function(){
     localStorage.setItem('apikey', $scope.apikey);
+    $giantbomb.setAPIKey($scope.apikey);
   };
 
   $scope.displayPlatforms = function(platforms){

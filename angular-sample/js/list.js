@@ -1,4 +1,4 @@
-var GiantBombList = angular.module('GiantBombList', ['ngResource', 'ngSanitize']);
+var GiantBombList = angular.module('GiantBombList', ['ngSanitize', 'ngGiantBomb']);
 
 GiantBombList.config(function($routeProvider, $locationProvider){
     $routeProvider
@@ -49,6 +49,7 @@ GiantBombList.factory('Collection', function(){
   return Collection;
 });
 
+
 GiantBombList.directive('gb', function(){
   return {
     restrict: 'E',
@@ -63,32 +64,32 @@ GiantBombList.filter('highlightText', function(){
   }
 });
 
-GiantBombList.controller('ApiKeyCtrl', function ($scope) {
+GiantBombList.controller('ApiKeyCtrl', function ($scope, $giantbomb) {
   $scope.apikey = localStorage.getItem('apikey');
-
+  $giantbomb.setAPIKey($scope.apikey);
   $scope.storeApiKey =  function(){
     localStorage.setItem('apikey', $scope.apikey);
+    $giantbomb.setAPIKey($scope.apikey);
   };
 });
 
 GiantBombList.controller('ListCtrl', function ($scope, $route, $location, Collection) {
   $scope.collection = Collection;
+  $scope.loadingDetails= false;
   $scope.showDetails = function(id){
+    $scope.loadingDetails = true;
     console.log("Showing details " + id);
     $location.path("/details/"+ id);
   }
 });
+
 var DetailCtrl = GiantBombList.controller('DetailCtrl', function ($scope, detail) {
   console.log("Current detail: ", detail);
   $scope.game = detail;
 });
-DetailCtrl.loadDetails = function($q, $route, $resource){
+DetailCtrl.loadDetails = function($q, $route, $giantbomb){
   var defer = $q.defer();
-  //define search ngResource
-  gameDetails = $resource('http://www.giantbomb.com/api/game/:id',
-      {id: '', api_key: localStorage.getItem('apikey'), format: 'jsonp', field_list: 'name,description,id,original_release_date,platforms,api_detail_url,site_detail_url', json_callback: 'JSON_CALLBACK'},
-      {get: {method: 'JSONP'}});
-  gameDetails.get({id: $route.current.params.id}, function(result){
+  $giantbomb.gameDetails($route.current.params.id, function(result){
     defer.resolve(result.results);
   });
   return defer.promise;
